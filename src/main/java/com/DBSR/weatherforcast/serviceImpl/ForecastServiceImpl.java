@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 
+import com.DBSR.weatherforcast.config.ApplicationConfiguration;
+import com.DBSR.weatherforcast.config.Constants;
 import com.DBSR.weatherforcast.enums.LocationEnum;
 import com.DBSR.weatherforcast.model.Forecast;
 import com.DBSR.weatherforcast.model.ForecastId;
@@ -27,6 +29,9 @@ public class ForecastServiceImpl implements ForecastService {
 
 	@Autowired
 	ForecastRepository forecastRepository;
+	
+	@Autowired
+	ApplicationConfiguration config;
 
 	/**
 	 * Fetch and return weather forecast for TODAY
@@ -107,7 +112,7 @@ public class ForecastServiceImpl implements ForecastService {
 	 * @return [ExternalForecastResponse]
 	 */
 	private ExternalForecastResponse fetchWeatherData(LocationEnum location) {
-		final String url = "https://api.darksky.net/forecast/a95dd3618394987a073d661b67dc1adc/" + location.getLat()
+		final String url = Constants.extAPIURL + config.getAPIKey() + "/" + location.getLat()
 				+ "," + location.getLan() + "/?exclude=currently,flags,minutely,hourly";
 
 		RestTemplate template = new RestTemplate();
@@ -122,6 +127,14 @@ public class ForecastServiceImpl implements ForecastService {
 	@Override
 	public void save(Forecast forecast) {
 		forecastRepository.save(forecast);
+	}
+
+	/**
+	 * Housekeeping records that are more than 3 days old
+	 */
+	@Override
+	public void housekeepData() {
+		forecastRepository.housekeepData(LocalDate.now().minusDays(3));
 	}
 
 }

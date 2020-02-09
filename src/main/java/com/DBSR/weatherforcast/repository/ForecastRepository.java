@@ -13,5 +13,8 @@ public interface ForecastRepository extends MongoRepository<Forecast, ForecastId
 
 	@Query(value = "{'id.date': ?0}")
     List<Forecast> findByForecastDate(LocalDate date);
+
+	@Query(value="{'id.date': {$lte:?0}}", delete = true)
+	void housekeepData(LocalDate date);
 	
 }

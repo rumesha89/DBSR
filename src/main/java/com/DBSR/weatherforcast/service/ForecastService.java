@@ -9,5 +9,7 @@ public interface ForecastService {
 	public List<Forecast> getForecastforToday();
 	
 	public void save(Forecast forecast);
+
+	public void housekeepData();
 	
 }
