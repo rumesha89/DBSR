@@ -6,8 +6,8 @@ import lombok.Data;
 public class DailyData{
 	String summary;
 	String icon;
-//	Double humidity;
-//	Double temperatureMin;
-//	Double temperatureMax;
+	Double humidity;
+	Double temperatureMin;
+	Double temperatureMax;
 
 }

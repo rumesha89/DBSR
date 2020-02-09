@@ -88,15 +88,19 @@ public class ForecastServiceImpl implements ForecastService {
 					public Forecast call(ExternalForecastResponse t) {
 						Forecast temp = new Forecast(
 								new ForecastId(l.name(), LocalDate.now()),
-										t.getDaily().getData().get(0).getSummary(),
-										t.getDaily().getData().get(0).getIcon()
-										);
+								l.getLocationCode(),
+								t.getDaily().getData().get(0).getSummary(),
+								t.getDaily().getData().get(0).getIcon(),
+								t.getDaily().getData().get(0).getHumidity(),
+								t.getDaily().getData().get(0).getTemperatureMin(),
+								t.getDaily().getData().get(0).getTemperatureMax()
+								);
 						return temp;
 					}
 				})
 				.subscribeOn(Schedulers.computation());
 	}
-
+     
 	/**
 	 * External API call
 	 * @param location
