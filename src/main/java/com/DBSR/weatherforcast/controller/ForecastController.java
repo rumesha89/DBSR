@@ -1,6 +1,5 @@
 package com.DBSR.weatherforcast.controller;
 
-import java.text.ParseException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +18,7 @@ public class ForecastController {
 	ForecastService forecastService;
 	
 	@GetMapping("/getAll")
-	public List<Forecast> listDepts() throws ParseException{
+	public List<Forecast> getAll(){
 		
 		return forecastService.getForecastforToday();
 	}

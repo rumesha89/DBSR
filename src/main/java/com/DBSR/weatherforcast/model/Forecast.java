@@ -16,4 +16,12 @@ public class Forecast {
 	private String summary;
 	private String icon;
 	
+	public Forecast(ForecastId id, String summary, String icon) {
+		super();
+		this.id = id;
+		this.summary = summary;
+		this.icon = icon;
+	}
+	
+	
 }
