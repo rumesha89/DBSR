@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>Insert title here</title>
+<!-- Bootstrap core CSS -->
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+	crossorigin="anonymous" />
+
+<style>
+body {
+	background:
+		url("https://lh3.googleusercontent.com/proxy/jo6FMODoZwJ4swpdL8Jj3-UtYGc5fMiq0Kcp5KUFHhgjxyG3orJYnygxl5hm2KCkdDGk_L1edvz4p9tndCZNIPftBeu-pjY4wk4kV7V-mzW9")
+		no-repeat center center fixed;
+	background-size: cover;
+	padding: 2%;
+}
+
+.center {
+	text-align: center;
+}
+
+.left{
+	text-align: left;
+}
+</style>
+</head>
+<body>
+
+	<div class="col-md-12 center">
+		<h1>Today's Weather Forecast</h1>
+		<br>
+		<br>
+
+		<div th:switch="${forecastList}">
+			<h2 th:case="null">No Forecast yet!</h2>
+			<div th:case="*">
+				<table class="table table-borderless">
+					<thead>
+						<tr>
+							<th></th>
+							<th></th>
+							<th>Summary</th>
+							<th>Max Temperature</th>
+							<th>Min Temperature</th>
+							<th>Humidity</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="e : ${forecastList}">
+							<td class="left" th:text="${e.timezone}"></td>
+							<td><img th:src="@{${'images/' + e.icon +'.png'}}"
+								width="75" /></td>
+							<td th:text="${e.summary}"></td>
+							<td>
+								<img src="images/temperature.png" width="30"></img>
+								<span th:text="${e.temperatureMax}"></span> 
+							</td>
+							<td>
+								<img src="images/temperature.png" width="30"></img>
+								<span th:text="${e.temperatureMin}"></span> 
+							</td>
+							<td>
+								<img src="images/humidity.png" width="20"></img>
+								<span th:text="${e.humidity}"></span> 
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+	</div>
+
+
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+		integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+		integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+		integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+		crossorigin="anonymous"></script>
+</body>
+</html>
